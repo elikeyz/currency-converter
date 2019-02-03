@@ -46,6 +46,7 @@ body {
 label {
     width: 50%;
     text-align: left;
+    font-weight: bold;
 }
 
 input, select {
