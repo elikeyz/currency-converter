@@ -1,0 +1,67 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+.header-text {
+    font-family: 'Oswald', sans-serif;
+    margin: 0;
+}
+
+.header {
+    background-color: #0D1321;
+    color: #AFE0CE;
+    padding-left: 20px;
+}
+
+.main {
+    font-family: 'Open Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    background-color: #E3E4DB;
+}
+
+.form {
+    text-align: center;
+    margin-top: 50px;
+    height: 300px;
+    width: 50%;
+    background-color: #CDCDCD;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: rgb(0,0,0,0.5) 5px 5px 25px 5px;
+}
+
+.form-unit {
+    display: flex;
+    margin: 30px;
+    justify-content: center;
+}
+
+label {
+    width: 50%;
+    text-align: left;
+}
+
+input {
+    width: 50%;
+    height: 30px;
+}
+
+select {
+    width: 50%;
+    height: 30px;
+}
+
+button {
+    width: 50%;
+    height: 30px;
+    background-color: #0D1321;
+    color: #AFE0CE;
+    border-radius: 15px;
+}

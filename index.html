@@ -4,32 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
     <title>Currency Converter</title>
 </head>
 <body>
-    <div class="header">
-        <h1>Currency Converter</h1>
-    </div>
-    <div class="main">
-        <div class="form">
+    <header class="header">
+        <h1 class="header-text">Currency Converter</h1>
+    </header>
+    <main class="main">
+        <form class="form">
             <div class="form-unit">
-                <p>Select currency to convert from</p>
-                <select>
+                <label for="curr-from">Select currency to convert from</label>
+                <select id="curr-from">
                     <option>Select</option>
                 </select>
             </div>
             <div class="form-unit">
-                <p>Enter the amount</p>
+                <label for="amount">Enter the amount</label>
                 <input type="number" id="amount">
             </div>
             <div class="form-unit">
-                <p>Select currency to convert to</p>
-                <select>
+                <label for="curr-to">Select currency to convert to</label>
+                <select id="curr-to">
                     <option>Select</option>
                 </select>
             </div>
-            <div class="form-unit"></div>
-        </div>
-    </div>
+            <div class="form-unit">
+                <button id="submit-btn">Convert</button>
+            </div>
+        </form>
+    </main>
 </body>
 </html>
