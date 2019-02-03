@@ -24,12 +24,12 @@ body {
     justify-content: center;
     height: 100%;
     background-color: #E3E4DB;
+    align-items: start;
 }
 
 .form {
     text-align: center;
     margin-top: 50px;
-    height: 300px;
     width: 50%;
     background-color: #CDCDCD;
     padding: 10px;
@@ -48,14 +48,10 @@ label {
     text-align: left;
 }
 
-input {
+input, select {
     width: 50%;
     height: 30px;
-}
-
-select {
-    width: 50%;
-    height: 30px;
+    border: 1px solid #CDCDCD;
 }
 
 button {
@@ -64,4 +60,31 @@ button {
     background-color: #0D1321;
     color: #AFE0CE;
     border-radius: 15px;
+    border: 1px solid #0D1321;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #CDCDCD;
+    color: #0D1321;
+}
+
+@media only screen and (max-width: 720px) {
+    .form {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .form {
+        width: 90%;
+    }
+
+    .form-unit {
+        flex-direction: column;
+    }
+
+    label, input, select, button {
+        width: 100%;
+    }
 }
