@@ -57,17 +57,26 @@ input, select {
 
 button {
     width: 50%;
-    height: 30px;
+    height: 50px;
     background-color: #0D1321;
     color: #AFE0CE;
-    border-radius: 15px;
+    border-radius: 25px;
     border: 1px solid #0D1321;
     cursor: pointer;
+    font-size: large;
 }
 
 button:hover {
     background-color: #CDCDCD;
     color: #0D1321;
+}
+
+.result {
+    font-size: larger;
+}
+
+.success {
+    color: #1B5E20;
 }
 
 @media only screen and (max-width: 720px) {
