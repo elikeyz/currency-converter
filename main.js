@@ -2,7 +2,7 @@ const currFromField = document.getElementById('curr-from');
 const currToField = document.getElementById('curr-to');
 const amountField = document.getElementById('amount');
 const resultDiv = document.getElementById('result');
-const currencyForm = document.getElementsByTagName('form');
+const currencyForm = document.getElementsByTagName('form')[0];
 
 function convertCurrency(amount, fromCurrency, toCurrency) {
     fromCurrency = encodeURIComponent(fromCurrency);
