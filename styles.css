@@ -55,7 +55,7 @@ input, select {
     border: 1px solid #CDCDCD;
 }
 
-button {
+.button {
     width: 50%;
     height: 50px;
     background-color: #0D1321;
@@ -66,7 +66,7 @@ button {
     font-size: large;
 }
 
-button:hover {
+.button:hover {
     background-color: #CDCDCD;
     color: #0D1321;
 }
@@ -76,7 +76,15 @@ button:hover {
 }
 
 .success {
-    color: #1B5E20;
+    color: #2E7D32;
+}
+
+.working {
+    color: #FFA000;
+}
+
+.error {
+    color: #F44336;
 }
 
 @media only screen and (max-width: 720px) {
@@ -94,7 +102,7 @@ button:hover {
         flex-direction: column;
     }
 
-    label, input, select, button {
+    label, input, select, .button {
         width: 100%;
     }
 }
