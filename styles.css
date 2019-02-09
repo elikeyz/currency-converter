@@ -13,8 +13,8 @@ body {
 }
 
 .header {
-    background-color: #0D1321;
-    color: #AFE0CE;
+    background-color: #311B92;
+    color: #D1C4E9;
     padding-left: 20px;
 }
 
@@ -58,17 +58,17 @@ input, select {
 .button {
     width: 50%;
     height: 50px;
-    background-color: #0D1321;
-    color: #AFE0CE;
+    background-color: #311B92;
+    color: #D1C4E9;
     border-radius: 25px;
-    border: 1px solid #0D1321;
+    border: 1px solid #311B92;
     cursor: pointer;
     font-size: large;
 }
 
 .button:hover {
-    background-color: #CDCDCD;
-    color: #0D1321;
+    background-color: #D1C4E9;
+    color: #311B92;
 }
 
 .result {
