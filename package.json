@@ -1,0 +1,19 @@
+{
+  "name": "currency-converter",
+  "version": "1.0.0",
+  "description": "A currency converting application that is also offline capable",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elikeyz/currency-converter.git"
+  },
+  "author": "Elijah Enuem-Udogu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elikeyz/currency-converter/issues"
+  },
+  "homepage": "https://github.com/elikeyz/currency-converter#readme"
+}
