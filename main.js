@@ -21,6 +21,20 @@ function convertCurrency(amount, fromCurrency, toCurrency) {
         });
 }
 
+function registerServiceWorker() {
+    if (!navigator.serviceWorker) return;
+
+    navigator.serviceWorker.register('./sw.js')
+        .then((reg) => {
+            console.log('Service Worker registered successfully', reg);
+        })
+        .catch((err) => {
+            console.log('Registration failed', err);
+        });
+}
+
+registerServiceWorker();
+
 fetch('https://free.currencyconverterapi.com/api/v6/currencies')
     .then(response => response.json())
     .then(data => {
