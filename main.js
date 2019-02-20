@@ -33,20 +33,30 @@ function registerServiceWorker() {
         });
 }
 
+const renderCurrencyList = (data) => {
+    const dataArr = Object.entries(data.results);
+    dataArr.sort();
+    for (let i = 0; i < dataArr.length; i++) {
+        currFromField.insertAdjacentHTML('beforeend',
+        `<option value="${dataArr[i][1].id}">${dataArr[i][1].currencyName} - ${dataArr[i][1].id}</option>`);
+        currToField.insertAdjacentHTML('beforeend',
+        `<option value="${dataArr[i][1].id}">${dataArr[i][1].currencyName} - ${dataArr[i][1].id}</option>`);
+    }
+}
+
+const renderConversionResult = (result) => {
+    if(result !== undefined) {
+        resultDiv.innerHTML = `<p class="success">${amount} ${currFrom} equals ${result} ${currTo}</p>`;
+    } else {
+        resultDiv.innerHTML = `<p class="error">Failed to get conversion rate</p>`;
+    }
+}
+
 registerServiceWorker();
 
 fetch('https://free.currencyconverterapi.com/api/v6/currencies')
     .then(response => response.json())
-    .then(data => {
-        const dataArr = Object.entries(data.results);
-        dataArr.sort();
-        for (let i = 0; i < dataArr.length; i++) {
-            currFromField.insertAdjacentHTML('beforeend',
-            `<option value="${dataArr[i][1].id}">${dataArr[i][1].currencyName} - ${dataArr[i][1].id}</option>`);
-            currToField.insertAdjacentHTML('beforeend',
-            `<option value="${dataArr[i][1].id}">${dataArr[i][1].currencyName} - ${dataArr[i][1].id}</option>`);
-        }
-    })
+    .then(renderCurrencyList)
     .catch(err => {
         resultDiv.innerHTML = `<p class="error">An error was encountered while trying to get currency list. ${err}</p>`;
     });
@@ -61,13 +71,7 @@ currencyForm.addEventListener('submit', function(event) {
 
     event.preventDefault();
     convertCurrency(Number(amount), currFrom, currTo)
-        .then(result => {
-            if(result !== undefined) {
-                resultDiv.innerHTML = `<p class="success">${amount} ${currFrom} equals ${result} ${currTo}</p>`;
-            } else {
-                resultDiv.innerHTML = `<p class="error">Failed to get conversion rate</p>`;
-            }
-        })
+        .then(renderConversionResult)
         .catch(err => {
             resultDiv.innerHTML = `<p class="error">An error was encountered while trying to convert currencies. ${err}</p>`;
         })
