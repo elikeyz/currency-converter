@@ -9,7 +9,7 @@ function convertCurrency(amount, fromCurrency, toCurrency) {
     toCurrency = encodeURIComponent(toCurrency);
     const query = `${fromCurrency}_${toCurrency}`;
 
-    return fetch(`https://free.currencyconverterapi.com/api/v6/convert?q=${query}&compact=ultra`)
+    return fetch(`https://free.currencyconverterapi.com/api/v6/convert?q=${query}&compact=ultra&apiKey=4947ee23b6d4b2082478`)
         .then(response => response.json())
         .then(data => {
             const val = data[query];
@@ -44,7 +44,7 @@ const renderCurrencyList = (data) => {
     }
 }
 
-const renderConversionResult = (result) => {
+const renderConversionResult = (result, amount, currFrom, currTo) => {
     if(result !== undefined) {
         resultDiv.innerHTML = `<p class="success">${amount} ${currFrom} equals ${result} ${currTo}</p>`;
     } else {
@@ -54,7 +54,7 @@ const renderConversionResult = (result) => {
 
 registerServiceWorker();
 
-fetch('https://free.currencyconverterapi.com/api/v6/currencies')
+fetch('https://free.currencyconverterapi.com/api/v6/currencies?apiKey=4947ee23b6d4b2082478')
     .then(response => response.json())
     .then(renderCurrencyList)
     .catch(err => {
@@ -71,7 +71,9 @@ currencyForm.addEventListener('submit', function(event) {
 
     event.preventDefault();
     convertCurrency(Number(amount), currFrom, currTo)
-        .then(renderConversionResult)
+        .then((result) => {
+            renderConversionResult(result, amount, currFrom, currTo);
+        })
         .catch(err => {
             resultDiv.innerHTML = `<p class="error">An error was encountered while trying to convert currencies. ${err}</p>`;
         })
