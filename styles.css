@@ -50,10 +50,23 @@ label {
 }
 
 input, select {
-    width: 50%;
-    height: 30px;
     border: 1px solid #CDCDCD;
     border-radius: 5px;
+}
+
+input {
+    padding: 3px;
+    height: 25px;
+    width: 49%;
+}
+
+select {
+    width: 50%;
+    height: 30px;
+}
+
+select:hover, option:hover {
+    cursor: pointer;
 }
 
 .button {
@@ -63,17 +76,20 @@ input, select {
     color: #D1C4E9;
     border-radius: 25px;
     border: 1px solid #311B92;
-    cursor: pointer;
     font-size: large;
 }
 
 .button:hover {
     background-color: #D1C4E9;
     color: #311B92;
+    cursor: pointer;
 }
 
 .result {
     font-size: larger;
+    background-color: white;
+    margin: 0px 30px;
+    border-radius: 5px;
 }
 
 .success {
