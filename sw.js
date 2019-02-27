@@ -1,5 +1,6 @@
 const staticCacheName = 'currency-converter-static-v1';
-const allCaches = [staticCacheName];
+const conversionsCache = 'currency-converter-conversions';
+const allCaches = [staticCacheName, conversionsCache];
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
@@ -35,12 +36,32 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+    const requestUrl = new URL(event.request.url);
+
+    if (requestUrl.origin === 'https://free.currencyconverterapi.com' &&
+         requestUrl.pathname.endsWith('/convert')) {
+            event.respondWith(serveConversion(event.request));
+            return;
+    }
+
     event.respondWith(
         caches.match(event.request)
             .then((response) => {
                 return response || fetch(event.request);
             })
     );
+
+    function serveConversion(request) {
+        return caches.open(conversionsCache).then((cache) => {
+            return cache.match(request.url).then((response) => {
+                const networkFetch = fetch(request).then((networkResponse) => {
+                    cache.put(request, networkResponse.clone());
+                    return networkResponse;
+                });
+                return response || networkFetch;
+            })
+        })
+    }
 });
 
 self.addEventListener('message', (event) => {
