@@ -3,6 +3,7 @@ const currToField = document.getElementById('curr-to');
 const amountField = document.getElementById('amount');
 const resultDiv = document.getElementById('result');
 const currencyForm = document.getElementsByTagName('form')[0];
+let currencyListIsLoaded = false;
 
 function convertCurrency(amount, fromCurrency, toCurrency) {
     fromCurrency = encodeURIComponent(fromCurrency);
@@ -17,7 +18,7 @@ function convertCurrency(amount, fromCurrency, toCurrency) {
             return total;
         })
         .catch(err => {
-            console.log(err);
+            resultDiv.innerHTML = `<p class="error">An error was encountered while trying to convert currencies. ${err}</p>`;
         });
 }
 
@@ -71,16 +72,52 @@ function registerServiceWorker() {
         });
 }
 
+function openDatabase() {
+    if (!navigator.serviceWorker) return Promise.resolve();
+
+    return idb.openDb('currency-converter', 1, (upgradeDb) => {
+        upgradeDb.createObjectStore('currencies', { keyPath: 'id' });
+    });
+}
+
 const renderCurrencyList = (data) => {
     const dataArr = Object.entries(data.results);
     dataArr.sort();
-    for (let i = 0; i < dataArr.length; i++) {
-        currFromField.insertAdjacentHTML('beforeend',
-        `<option value="${dataArr[i][1].id}">${dataArr[i][1].currencyName} - ${dataArr[i][1].id}</option>`);
-        currToField.insertAdjacentHTML('beforeend',
-        `<option value="${dataArr[i][1].id}">${dataArr[i][1].currencyName} - ${dataArr[i][1].id}</option>`);
-    }
+    openDatabase().then((db) => {
+        if (!db) return;
+
+        const tx = db.transaction('currencies', 'readwrite');
+        const store = tx.objectStore('currencies');
+        store.clear();
+        currFromField.innerHTML = '';
+        currToField.innerHTML = '';
+        for (let i = 0; i < dataArr.length; i++) {
+            store.put(dataArr[i][1]);
+            currFromField.insertAdjacentHTML('beforeend',
+            `<option value="${dataArr[i][1].id}">${dataArr[i][1].currencyName} - ${dataArr[i][1].id}</option>`);
+            currToField.insertAdjacentHTML('beforeend',
+            `<option value="${dataArr[i][1].id}">${dataArr[i][1].currencyName} - ${dataArr[i][1].id}</option>`);
+        }
+        return tx.complete;
+    });
 }
+
+const renderCurrencyListFromDb = () => {
+    openDatabase().then((db) => {
+        if (!db || currFromField.innerHTML || currToField.innerHTML) return;
+
+        const store = db.transaction('currencies').objectStore('currencies');
+        return store.getAll().then((currencies) => {
+            currencies.forEach((currency) => {
+                currFromField.insertAdjacentHTML('beforeend',
+                `<option value="${currency.id}">${currency.currencyName} - ${currency.id}</option>`);
+                currToField.insertAdjacentHTML('beforeend',
+                `<option value="${currency.id}">${currency.currencyName} - ${currency.id}</option>`)
+            });
+            currencyListIsLoaded = true;
+        });
+    });
+};
 
 const renderConversionResult = (result, amount, currFrom, currTo) => {
     if(result !== undefined) {
@@ -91,12 +128,17 @@ const renderConversionResult = (result, amount, currFrom, currTo) => {
 }
 
 registerServiceWorker();
+renderCurrencyListFromDb();
 
 fetch('https://free.currencyconverterapi.com/api/v6/currencies?apiKey=4947ee23b6d4b2082478')
     .then(response => response.json())
     .then(renderCurrencyList)
     .catch(err => {
-        resultDiv.innerHTML = `<p class="error">An error was encountered while trying to get currency list. ${err}</p>`;
+        setTimeout(() => {
+            if (!currencyListIsLoaded) {
+                resultDiv.innerHTML = `<p class="error">An error was encountered while trying to get currency list. ${err}</p>`;
+            }
+        }, 3000);
     });
 
 currencyForm.addEventListener('submit', function(event) {
