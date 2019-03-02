@@ -80,6 +80,16 @@ function openDatabase() {
     });
 }
 
+const renderListItem = (item) => {
+    if(resultDiv.innerHTML === '<p class="working">Loading currency lists...</p>') {
+        resultDiv.innerHTML = '';
+    }
+    currFromField.insertAdjacentHTML('beforeend',
+    `<option value="${item.id}">${item.currencyName} - ${item.id}</option>`);
+    currToField.insertAdjacentHTML('beforeend',
+    `<option value="${item.id}">${item.currencyName} - ${item.id}</option>`);
+};
+
 const renderCurrencyList = (data) => {
     const dataArr = Object.entries(data.results);
     dataArr.sort();
@@ -93,10 +103,7 @@ const renderCurrencyList = (data) => {
         currToField.innerHTML = '';
         for (let i = 0; i < dataArr.length; i++) {
             store.put(dataArr[i][1]);
-            currFromField.insertAdjacentHTML('beforeend',
-            `<option value="${dataArr[i][1].id}">${dataArr[i][1].currencyName} - ${dataArr[i][1].id}</option>`);
-            currToField.insertAdjacentHTML('beforeend',
-            `<option value="${dataArr[i][1].id}">${dataArr[i][1].currencyName} - ${dataArr[i][1].id}</option>`);
+            renderListItem(dataArr[i][1]);
         }
         return tx.complete;
     });
@@ -108,11 +115,9 @@ const renderCurrencyListFromDb = () => {
 
         const store = db.transaction('currencies').objectStore('currencies');
         return store.getAll().then((currencies) => {
+            resultDiv.innerHTML = '';
             currencies.forEach((currency) => {
-                currFromField.insertAdjacentHTML('beforeend',
-                `<option value="${currency.id}">${currency.currencyName} - ${currency.id}</option>`);
-                currToField.insertAdjacentHTML('beforeend',
-                `<option value="${currency.id}">${currency.currencyName} - ${currency.id}</option>`)
+                renderListItem(currency);
             });
             currencyListIsLoaded = true;
         });
@@ -121,11 +126,15 @@ const renderCurrencyListFromDb = () => {
 
 const renderConversionResult = (result, amount, currFrom, currTo) => {
     if(result !== undefined) {
-        resultDiv.innerHTML = `<p class="success">${amount} ${currFrom} equals ${result} ${currTo}</p>`;
+        resultDiv.innerHTML = `<p class="success"><strong>${amount.toLocaleString()} ${currFrom}</strong> equals <strong>${result.toLocaleString()} ${currTo}</strong></p>`;
     } else {
         resultDiv.innerHTML = `<p class="error">Failed to get conversion rate</p>`;
     }
 }
+
+// Work starts here
+
+resultDiv.innerHTML = '<p class="working">Loading currency lists...</p>';
 
 registerServiceWorker();
 renderCurrencyListFromDb();
@@ -152,7 +161,7 @@ currencyForm.addEventListener('submit', function(event) {
     event.preventDefault();
     convertCurrency(Number(amount), currFrom, currTo)
         .then((result) => {
-            renderConversionResult(result, amount, currFrom, currTo);
+            renderConversionResult(result, Number(amount), currFrom, currTo);
         })
         .catch(err => {
             resultDiv.innerHTML = `<p class="error">An error was encountered while trying to convert currencies. ${err}</p>`;
