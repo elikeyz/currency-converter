@@ -7,10 +7,10 @@ self.addEventListener('install', (event) => {
         caches.open(staticCacheName)
             .then((cache) => {
                 return cache.addAll([
-                    '/',
-                    '/styles.css',
-                    '/main.js',
-                    '/idb.js',
+                    'https://elikeyz.github.io/currency-converter/',
+                    'https://elikeyz.github.io/currency-converter/styles.css',
+                    'https://elikeyz.github.io/currency-converter/main.js',
+                    'https://elikeyz.github.io/currency-converter/idb.js',
                     'https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-solid-900.woff2',
                     'https://fonts.gstatic.com/s/oswald/v16/TK3iWkUHHAIjg752GT8G.woff2',
                     'https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFVZ0b.woff2',
