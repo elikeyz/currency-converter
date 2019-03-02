@@ -6,7 +6,7 @@
   "display": "standalone",
   "orientation": "any",
   "Scope": "https://elikeyz.github.io/currency-converter",
-  "start_url": "https://elikeyz.github.io/currency-converter",
+  "start_url": "https://elikeyz.github.io/currency-converter/index.html",
   "icons": [
     {
       "src": "images/icons/icon-72x72.png",
