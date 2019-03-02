@@ -5,8 +5,8 @@
   "background_color": "#d1c4e9",
   "display": "standalone",
   "orientation": "any",
-  "Scope": "/",
-  "start_url": "/",
+  "Scope": "https://elikeyz.github.io/currency-converter",
+  "start_url": "https://elikeyz.github.io/currency-converter",
   "icons": [
     {
       "src": "images/icons/icon-72x72.png",
@@ -58,10 +58,10 @@
   "lang": "en-US",
   "description": "A simple currency converter application",
   "serviceworker": {
-    "src": "/sw.js",
-    "scope": "/"
+    "src": "https://elikeyz.github.io/currency-converter/sw.js",
+    "scope": "https://elikeyz.github.io/currency-converter/"
   },
   "screenshots": [{
-    "src": "/images/screenshots/screenshot.png"
+    "src": "images/screenshots/screenshot.png"
   }]
 }
