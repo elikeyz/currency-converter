@@ -1,6 +1,6 @@
 {
   "name": "Currency Converter",
-  "short_name": "Currency Converter",
+  "short_name": "Converter",
   "theme_color": "#311b92",
   "background_color": "#d1c4e9",
   "display": "standalone",
