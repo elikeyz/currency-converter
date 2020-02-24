@@ -1,4 +1,4 @@
-const staticCacheName = 'currency-converter-static-v9';
+const staticCacheName = 'currency-converter-static-v10';
 const conversionsCache = 'currency-converter-conversions';
 const allCaches = [staticCacheName, conversionsCache];
 
