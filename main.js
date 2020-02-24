@@ -10,7 +10,7 @@ function convertCurrency(amount, fromCurrency, toCurrency) {
     toCurrency = encodeURIComponent(toCurrency);
     const query = `${fromCurrency}_${toCurrency}`;
 
-    return fetch(`https://free.currencyconverterapi.com/api/v6/convert?q=${query}&compact=ultra&apiKey=4947ee23b6d4b2082478`)
+    return fetch(`https://free.currconv.com/api/v7/convert?q=${query}&compact=ultra&apiKey=4947ee23b6d4b2082478`)
         .then(response => response.json())
         .then(data => {
             const val = data[query];
@@ -139,7 +139,7 @@ resultDiv.innerHTML = '<p class="working">Loading currency lists...</p>';
 registerServiceWorker();
 renderCurrencyListFromDb();
 
-fetch('https://free.currencyconverterapi.com/api/v6/currencies?apiKey=4947ee23b6d4b2082478')
+fetch('https://free.currconv.com/api/v7/currencies?apiKey=4947ee23b6d4b2082478')
     .then(response => response.json())
     .then(renderCurrencyList)
     .catch(err => {

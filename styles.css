@@ -84,10 +84,15 @@ select:hover, option:hover {
     font-size: large;
 }
 
-.button:hover {
+.button:hover, .button:focus {
     background-color: #D1C4E9;
     color: #311B92;
     cursor: pointer;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border: 1px solid #311B92;
 }
 
 .result {
